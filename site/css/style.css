@@ -54,9 +54,9 @@ svg{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-l
 .h-xl{font-family:var(--f-display);font-size:clamp(2.4rem,5.6vw,4.6rem);text-transform:uppercase;letter-spacing:.01em;color:var(--navy)}
 .h-lg{font-family:var(--f-display);font-size:clamp(2rem,4vw,3.2rem);text-transform:uppercase;color:var(--navy)}
 .h-xl em,.h-lg em{font-style:normal;color:var(--blue)}
-html.js .h-xl em .char,html.js .h-lg em .char{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+html.js .h-xl em .wi,html.js .h-lg em .wi{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .h-lg em.gold-text{color:var(--gold)}
-html.js .h-lg em.gold-text .char{background:linear-gradient(100deg,#8a5d12,#d9a441 50%,#8a5d12);-webkit-background-clip:text;background-clip:text;color:transparent}
+html.js .h-lg em.gold-text .wi{background:linear-gradient(100deg,#8a5d12,#d9a441 50%,#8a5d12);-webkit-background-clip:text;background-clip:text;color:transparent}
 .lead{color:var(--muted);font-size:1.08rem;max-width:620px}
 .script{font-family:var(--f-script)}
 .sub-h{font-family:var(--f-display);text-transform:uppercase;font-size:1.6rem;letter-spacing:.03em;margin:70px 0 26px;color:var(--navy)}
@@ -87,8 +87,8 @@ html.js .h-lg em.gold-text .char{background:linear-gradient(100deg,#8a5d12,#d9a4
 .glow-border::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;pointer-events:none;
   background:conic-gradient(from var(--a),var(--blue),rgba(56,189,248,.1) 25%,var(--sky) 50%,rgba(29,91,255,.1) 75%,var(--blue));
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
-  animation:spin 6s linear infinite;opacity:.45;transition:opacity .4s}
-.glow-border:hover::before{opacity:1}
+  animation:spin 6s linear infinite paused;opacity:.45;transition:opacity .4s}
+.glow-border:hover::before{opacity:1;animation-play-state:running}
 @keyframes spin{to{--a:360deg}}
 .spot{position:relative;overflow:hidden}
 .spot::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%),rgba(29,91,255,.09),transparent 45%)}
@@ -165,7 +165,7 @@ html.intro-run #intro{display:flex;position:fixed;inset:0;z-index:1000;flex-dire
    HEADER
    ========================================================= */
 .site-header{position:fixed;top:0;left:0;right:0;z-index:150;transition:background .4s,box-shadow .4s,transform .4s var(--ease)}
-.site-header.scrolled{background:rgba(255,255,255,.86);backdrop-filter:blur(14px) saturate(1.6);-webkit-backdrop-filter:blur(14px) saturate(1.6);box-shadow:0 1px 0 var(--line),0 10px 30px -20px rgba(13,44,130,.35)}
+.site-header.scrolled{background:rgba(255,255,255,.97);box-shadow:0 1px 0 var(--line),0 10px 30px -20px rgba(13,44,130,.35)}
 .site-header.hide{transform:translateY(-100%)}
 .header-inner{display:flex;align-items:center;justify-content:space-between;height:78px;gap:20px}
 .brand{display:flex;align-items:center;gap:12px}
@@ -195,11 +195,13 @@ html.intro-run #intro{display:flex;position:fixed;inset:0;z-index:1000;flex-dire
 .hero-beams i:nth-child(2){left:80%;background:linear-gradient(transparent,var(--blue),transparent);animation-delay:2.3s}
 .hero-beams i:nth-child(3){left:30%;background:linear-gradient(transparent,rgba(29,91,255,.6),transparent);animation-delay:4.6s}
 @keyframes beam{0%,100%{opacity:0;translate:-120px 0}40%,60%{opacity:.7}50%{translate:120px 0}}
-.hero-floor{position:absolute;left:-50%;right:-50%;bottom:-10%;height:55%;
-  background-image:linear-gradient(rgba(29,91,255,.22) 1px,transparent 1px),linear-gradient(90deg,rgba(29,91,255,.22) 1px,transparent 1px);background-size:70px 70px;
+.hero-floor{position:absolute;left:-50%;right:-50%;bottom:-10%;height:55%;overflow:hidden;
   transform:perspective(500px) rotateX(70deg);transform-origin:bottom;
-  mask:linear-gradient(to top,#000 0,transparent 75%);-webkit-mask:linear-gradient(to top,#000 0,transparent 75%);animation:floor 3s linear infinite;opacity:.6}
-@keyframes floor{to{background-position:0 70px}}
+  mask:linear-gradient(to top,#000 0,transparent 75%);-webkit-mask:linear-gradient(to top,#000 0,transparent 75%);opacity:.6}
+.hero-floor::before{content:"";position:absolute;left:0;right:0;top:-70px;bottom:0;will-change:transform;
+  background-image:linear-gradient(rgba(29,91,255,.22) 1px,transparent 1px),linear-gradient(90deg,rgba(29,91,255,.22) 1px,transparent 1px);background-size:70px 70px;
+  animation:floor 3s linear infinite}
+@keyframes floor{to{transform:translate3d(0,70px,0)}}
 .hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:40px;padding-top:110px;padding-bottom:90px}
 .pulse-dot{width:8px;height:8px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 0 rgba(29,91,255,.6);animation:pulse 1.8s infinite}
 .hero .eyebrow::before{display:none}
@@ -212,7 +214,7 @@ html.js .line-2 .char{background:var(--grad);-webkit-background-clip:text;backgr
 .hero-sub{font-size:1.12rem;color:var(--muted);max-width:560px}
 .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin:34px 0 40px}
 .hero-chips{display:flex;flex-wrap:wrap;gap:12px}
-.hero-chips li{padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.85);backdrop-filter:blur(6px);font-size:.85rem;color:var(--muted);box-shadow:0 8px 20px -14px rgba(13,44,130,.5)}
+.hero-chips li{padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.92);font-size:.85rem;color:var(--muted);box-shadow:0 8px 20px -14px rgba(13,44,130,.5)}
 .hero-chips b{color:var(--blue2);font-weight:800;margin-right:4px}
 .hero-emblem{position:relative;aspect-ratio:1;width:100%;max-width:470px;justify-self:center;transform-style:preserve-3d;transition:transform .2s ease-out}
 .hero-emblem::before{content:"";position:absolute;inset:10%;border-radius:50%;background:radial-gradient(circle,rgba(29,91,255,.45),transparent 70%);filter:blur(30px)}
@@ -220,8 +222,8 @@ html.js .line-2 .char{background:var(--grad);-webkit-background-clip:text;backgr
   mask:radial-gradient(circle,#000 62%,transparent 71%);-webkit-mask:radial-gradient(circle,#000 62%,transparent 71%);animation:float 6s ease-in-out infinite}
 @keyframes float{50%{transform:translateY(-14px)}}
 .emblem-ring{position:absolute;inset:0;border-radius:50%}
-.emblem-ring.r1{background:conic-gradient(from var(--a),transparent 0 55%,var(--sky) 72%,transparent 73% 82%,var(--blue) 97%,transparent);
-  -webkit-mask:radial-gradient(circle,transparent 66%,#000 67%,#000 68.5%,transparent 69.5%);mask:radial-gradient(circle,transparent 66%,#000 67%,#000 68.5%,transparent 69.5%);animation:spin 5s linear infinite}
+.emblem-ring.r1{background:conic-gradient(from 0deg,transparent 0 55%,var(--sky) 72%,transparent 73% 82%,var(--blue) 97%,transparent);
+  -webkit-mask:radial-gradient(circle,transparent 66%,#000 67%,#000 68.5%,transparent 69.5%);mask:radial-gradient(circle,transparent 66%,#000 67%,#000 68.5%,transparent 69.5%);animation:rot 5s linear infinite;will-change:transform}
 .emblem-ring.r2{inset:4%;border:1.5px dashed rgba(29,91,255,.3);animation:rot 40s linear infinite}
 @keyframes rot{to{transform:rotate(360deg)}}
 .emblem-orbit{position:absolute;inset:-3%;animation:rot 9s linear infinite}
@@ -237,14 +239,17 @@ body.ready .hero-in{opacity:1;transform:none}
 body.ready .hero-emblem.hero-in{transform:none}
 
 /* split text */
-.word{display:inline-block;white-space:nowrap}
-.char{display:inline-block}
-html.js [data-split] .char{transform:translateY(105%) rotate(6deg);opacity:0;transition:transform .9s var(--ease-out),opacity .6s;transition-delay:calc(var(--ci) * 28ms + var(--base,0ms))}
-html.js [data-split]{overflow:hidden;padding-bottom:.06em}
+.word{display:inline-block;white-space:nowrap;vertical-align:top}
+.wi,.char{display:inline-block}
+/* masked slide-up: only transform animates (GPU composited, no repaint) */
+html.js [data-split] .word{overflow:hidden;padding:0 .04em .1em;margin:0 -.04em -.1em}
+html.js [data-split] .wi{transform:translate3d(0,112%,0);transition:transform 1.05s cubic-bezier(.19,1,.22,1);transition-delay:calc(var(--wi) * 75ms + var(--base,0ms))}
+html.js [data-split="chars"] .wi{transform:none;transition:none}
+html.js [data-split="chars"] .char{transform:translate3d(0,112%,0);transition:transform .95s cubic-bezier(.19,1,.22,1);transition-delay:calc(var(--ci) * 38ms + var(--base,0ms))}
 html.js .hero-title [data-split]{--base:200ms}
 html.js .hero-title .line:nth-child(2){--base:420ms}
 html.js .hero-title .line:nth-child(3){--base:700ms}
-body.ready .hero-title .char,[data-split].in .char{transform:none!important;opacity:1!important}
+html.js body.ready .hero-title .char,html.js [data-split].in .wi{transform:none}
 
 /* scroll reveal */
 html.js [data-reveal]{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out),translate .45s var(--ease),border-color .4s,background .4s,box-shadow .4s;transition-delay:calc(var(--d,0) * 80ms),calc(var(--d,0) * 80ms),0s,0s,0s,0s}
@@ -556,7 +561,7 @@ body.ready .wa-float{opacity:1;scale:1}
 }
 @media (max-width:900px){
   .main-nav{position:fixed;inset:78px 0 auto 0;flex-direction:column;align-items:stretch;gap:18px;padding:24px;
-    background:rgba(255,255,255,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 30px 40px -30px rgba(13,44,130,.45);
+    background:#fff;box-shadow:0 30px 40px -30px rgba(13,44,130,.45);
     clip-path:inset(0 0 100% 0);visibility:hidden;transition:clip-path .5s var(--ease-out),visibility 0s .5s}
   .main-nav.open{clip-path:inset(0 0 0 0);visibility:visible;transition:clip-path .5s var(--ease-out)}
   .main-nav ul{flex-direction:column;gap:4px}
@@ -609,7 +614,7 @@ body.ready .wa-float{opacity:1;scale:1}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
   .marquee-track{animation:none}
-  html.js [data-reveal],html.js .hero-in,html.js [data-split] .char{opacity:1!important;transform:none!important}
+  html.js [data-reveal],html.js .hero-in,html.js [data-split] .char,html.js [data-split] .wi{opacity:1!important;transform:none!important}
 }
 
 /* =========================================================
@@ -626,8 +631,6 @@ body.ready .wa-float{opacity:1;scale:1}
 @keyframes ringPulse{from{box-shadow:0 0 0 0 rgba(29,91,255,.45)}to{box-shadow:0 0 0 26px rgba(29,91,255,0)}}
 
 /* glowing gradient headline words */
-html.js .h-xl em .char,html.js .h-lg em .char,html.js .line-2 .char{filter:drop-shadow(0 6px 16px rgba(29,91,255,.35))}
-.line-3{filter:drop-shadow(0 0 14px rgba(56,189,248,.45))}
 
 /* hero emblem glow */
 .hero-emblem img{filter:drop-shadow(0 0 36px rgba(29,91,255,.55))}
@@ -637,8 +640,9 @@ html.js .h-xl em .char,html.js .h-lg em .char,html.js .line-2 .char{filter:drop-
 .svc-ic{box-shadow:0 0 0 0 rgba(29,91,255,0);animation:iconFloat 4s ease-in-out infinite;animation-delay:calc(var(--d,0) * -.5s)}
 .svc:hover .svc-ic{box-shadow:0 10px 26px -6px rgba(29,91,255,.75)}
 @keyframes iconFloat{50%{translate:0 -6px}}
-.why-ic{animation:icPulse 3s ease-out infinite;animation-delay:calc(var(--d,0) * .35s)}
-@keyframes icPulse{0%{box-shadow:0 8px 18px -8px rgba(29,91,255,.9),0 0 0 0 rgba(29,91,255,.4)}70%,100%{box-shadow:0 8px 18px -8px rgba(29,91,255,.9),0 0 0 12px rgba(29,91,255,0)}}
+.why-ic{position:relative}
+.why-ic::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid rgba(29,91,255,.55);animation:icRing 3s ease-out infinite;animation-delay:calc(var(--d,0) * .35s)}
+@keyframes icRing{0%{transform:scale(1);opacity:.9}70%,100%{transform:scale(1.65);opacity:0}}
 .big-ic,.spec-grid svg{filter:drop-shadow(0 0 10px rgba(29,91,255,.45))}
 .big-ic.sky{filter:drop-shadow(0 0 10px rgba(56,189,248,.7))}
 .wedding .big-ic{filter:drop-shadow(0 0 12px rgba(191,230,255,.9))}
@@ -651,15 +655,15 @@ html.js .h-xl em .char,html.js .h-lg em .char,html.js .line-2 .char{filter:drop-
 
 /* shimmer sweeps on highlight cards & CTAs */
 .mcard.featured::after,.wedding::after,.refer-inner::after,.lifestyle-card::after{
-  content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;opacity:1;
-  background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.28) 50%,transparent 65%) no-repeat;background-size:250% 100%;
-  animation:sheen 4.5s ease-in-out infinite}
+  content:"";position:absolute;top:0;bottom:0;left:0;width:40%;pointer-events:none;opacity:1;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.26),transparent);
+  transform:translate3d(-150%,0,0) skewX(-20deg);animation:sheen 5s ease-in-out infinite;will-change:transform}
 .wedding,.refer-inner{position:relative;overflow:hidden}
-@keyframes sheen{0%{background-position:150% 0}60%,100%{background-position:-60% 0}}
+@keyframes sheen{0%{transform:translate3d(-150%,0,0) skewX(-20deg)}55%,100%{transform:translate3d(350%,0,0) skewX(-20deg)}}
 .hero-actions .btn-primary::after,.contact-form .btn-primary::after{animation:btnSheen 3.6s ease-in-out 2.5s infinite}
 @keyframes btnSheen{0%{transform:translateX(-120%)}40%,100%{transform:translateX(120%)}}
-.badge,.pill{animation:badgeGlow 2.4s ease-in-out infinite}
-@keyframes badgeGlow{50%{box-shadow:0 0 0 5px rgba(29,91,255,.14),0 8px 20px -6px rgba(29,91,255,.8)}}
+.badge,.pill{animation:badgeBob 2.4s ease-in-out infinite}
+@keyframes badgeBob{50%{scale:1.07}}
 
 /* text glows on blue blocks */
 .lifestyle-card .script,.wedding-script{text-shadow:0 0 22px rgba(191,230,255,.75)}
@@ -670,12 +674,16 @@ html.js .h-xl em .char,html.js .h-lg em .char,html.js .line-2 .char{filter:drop-
 .refer-steps span{animation:stepGlow 3s ease-in-out infinite}
 .refer-steps li:nth-child(2) span{animation-delay:1s}
 .refer-steps li:nth-child(3) span{animation-delay:2s}
-@keyframes stepGlow{0%,40%,100%{box-shadow:0 14px 30px -12px rgba(0,0,0,.5);transform:none}15%{box-shadow:0 0 0 8px rgba(191,230,255,.35),0 0 40px rgba(191,230,255,.9);transform:scale(1.08)}}
+@keyframes stepGlow{0%,40%,100%{scale:1;opacity:1}15%{scale:1.12}}
+.refer-steps li::before{content:"";position:absolute;top:0;left:50%;width:88px;height:88px;margin-left:-44px;border-radius:50%;box-shadow:0 0 40px 6px rgba(191,230,255,.9);opacity:0;animation:stepHalo 3s ease-in-out infinite;pointer-events:none}
+.refer-steps li:nth-child(2)::before{animation-delay:1s}.refer-steps li:nth-child(3)::before{animation-delay:2s}
+@keyframes stepHalo{0%,40%,100%{opacity:0}15%{opacity:1}}
+@media (max-width:640px){.refer-steps li::before{width:70px;height:70px;margin-left:-35px}}
 
 /* certificate & coach glow */
 .cert.center img{box-shadow:0 40px 70px -24px rgba(10,31,92,.6),0 0 0 3px var(--blue),0 0 60px -6px rgba(29,91,255,.55)}
-.coach-frame{animation:frameGlow 4s ease-in-out infinite}
-@keyframes frameGlow{50%{box-shadow:0 40px 80px -36px rgba(13,44,130,.45),0 0 60px -10px rgba(56,189,248,.8)}}
+.coach-frame::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:0 0 60px -6px rgba(56,189,248,.9);opacity:0;animation:frameGlow 4s ease-in-out infinite;pointer-events:none}
+@keyframes frameGlow{50%{opacity:1}}
 
 /* price rows & membership prices pop when counting */
 .mcard.in .price,.tp.in .price{animation:pricePop .7s var(--ease-out) both;animation-delay:calc(var(--d,0) * 80ms + .2s)}

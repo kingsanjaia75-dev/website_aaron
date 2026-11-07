@@ -11,9 +11,10 @@
 
   $('#year').textContent = new Date().getFullYear();
 
-  /* ---------- split text into animated chars ---------- */
+  /* ---------- split text: words slide up from a mask (hero title per letter) ---------- */
   $$('[data-split]').forEach(el => {
-    let ci = 0;
+    const chars = el.dataset.split === 'chars';
+    let wi = 0, ci = 0;
     const walk = node => {
       [...node.childNodes].forEach(child => {
         if (child.nodeType === 3) {
@@ -23,13 +24,19 @@
             if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
             const w = document.createElement('span');
             w.className = 'word';
-            [...part].forEach(ch => {
-              const c = document.createElement('span');
-              c.className = 'char';
-              c.textContent = ch;
-              c.style.setProperty('--ci', ci++);
-              w.appendChild(c);
-            });
+            const inner = document.createElement('span');
+            inner.className = 'wi';
+            inner.style.setProperty('--wi', wi++);
+            if (chars) {
+              [...part].forEach(ch => {
+                const c = document.createElement('span');
+                c.className = 'char';
+                c.textContent = ch;
+                c.style.setProperty('--ci', ci++);
+                inner.appendChild(c);
+              });
+            } else inner.textContent = part;
+            w.appendChild(inner);
             frag.appendChild(w);
           });
           child.replaceWith(frag);
@@ -124,7 +131,6 @@
     header.classList.toggle('hide', y > 600 && y > lastY && !nav.classList.contains('open'));
     lastY = y;
     const max = document.documentElement.scrollHeight - innerHeight;
-    root.style.setProperty('--sp', max > 0 ? y / max : 0);
     $('.scroll-progress i').style.transform = `scaleX(${max > 0 ? y / max : 0})`;
     ticking = false;
   };
@@ -199,12 +205,21 @@
     const ctx = canvas.getContext('2d');
     let w, h, dpr, parts = [], running = true;
     const colors = ['29,91,255', '56,189,248', '11,63,217'];
+    const sprites = {};
+    colors.forEach(c => {
+      const o = document.createElement('canvas');
+      o.width = o.height = 32;
+      const g = o.getContext('2d'), gr = g.createRadialGradient(16, 16, 0, 16, 16, 16);
+      gr.addColorStop(0, `rgba(${c},1)`); gr.addColorStop(.22, `rgba(${c},.9)`); gr.addColorStop(1, `rgba(${c},0)`);
+      g.fillStyle = gr; g.fillRect(0, 0, 32, 32);
+      sprites[c] = o;
+    });
     const resize = () => {
-      dpr = Math.min(devicePixelRatio || 1, 2);
+      dpr = Math.min(devicePixelRatio || 1, 1.5);
       w = canvas.clientWidth; h = canvas.clientHeight;
       canvas.width = w * dpr; canvas.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const n = Math.round(Math.min(90, w * h / 16000));
+      const n = Math.round(Math.min(70, w * h / 18000));
       parts = Array.from({ length: n }, () => spawn(true));
     };
     const spawn = init => ({
@@ -224,16 +239,13 @@
         if (d2 < 14000) { p.x += dx * .02; p.y += dy * .02; }
         if (p.y < -10) parts[i] = spawn(false);
         const a = p.a * (.6 + Math.sin(p.tw) * .4);
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(${p.c},${a})`;
-        ctx.shadowColor = `rgba(${p.c},1)`;
-        ctx.shadowBlur = 8;
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
+        const sz = p.r * 7;
+        ctx.globalAlpha = a;
+        ctx.drawImage(sprites[p.c], p.x - sz / 2, p.y - sz / 2, sz, sz);
+        ctx.globalAlpha = 1;
         for (let j = i + 1; j < parts.length; j++) {
           const q = parts[j], ex = p.x - q.x, ey = p.y - q.y, e2 = ex * ex + ey * ey;
           if (e2 < 9000) {
-            ctx.shadowBlur = 0;
             ctx.strokeStyle = `rgba(${p.c},${.18 * (1 - e2 / 9000)})`;
             ctx.lineWidth = .6;
             ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
