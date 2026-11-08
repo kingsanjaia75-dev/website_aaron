@@ -414,7 +414,7 @@ html.js [data-reveal].in{opacity:1;transform:none}
 .coach{background:#fff;padding-bottom:80px}
 .coach-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:center}
 .coach-frame{position:relative;border-radius:28px;padding:10px;background:linear-gradient(140deg,var(--blue),var(--sky));box-shadow:var(--shadow-lg);transform-style:preserve-3d;max-width:380px}
-.coach-frame img{width:100%;height:auto;border-radius:20px;aspect-ratio:278/340;object-fit:cover}
+.coach-frame img{width:100%;height:auto;border-radius:20px;aspect-ratio:800/908;object-fit:cover}
 .coach-badge{position:absolute;right:-18px;bottom:30px;padding:14px 20px;border-radius:16px;background:#fff;border:1px solid var(--line);font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);transform:translateZ(40px);box-shadow:var(--shadow-lg)}
 .coach-badge b{display:block;font-family:var(--f-display);font-size:2.4rem;font-weight:400;line-height:1;color:var(--blue);letter-spacing:0}
 .coach-script{font-size:1.8rem;color:var(--blue)}
@@ -519,6 +519,11 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue);bo
 .footer-social{display:flex;gap:12px}
 .footer-social a{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.18);font-size:1.25rem;color:#fff;transition:.3s}
 .footer-social a:hover{background:#fff;color:var(--blue)}
+.footer-mail{margin:0;font-size:.9rem}
+.footer-mail a{color:#bfe6ff;border-bottom:1px solid rgba(191,230,255,.35);transition:color .3s,border-color .3s}
+.footer-mail a:hover{color:#fff;border-color:#fff}
+.clink span{min-width:0}
+@media (max-width:640px){.clink{font-size:.98rem;gap:14px;padding:14px 16px}}
 .copy{font-size:.82rem;color:#8ea3cc;margin:10px 0 0}
 .wa-float{position:fixed;right:22px;bottom:22px;z-index:120;width:60px;height:60px;border-radius:50%;display:grid;place-items:center;background:#25d366;color:#fff;font-size:1.8rem;box-shadow:0 10px 30px -6px rgba(37,211,102,.7);transition:transform .3s}
 .wa-float::before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #25d366;animation:ripple 2s infinite}
