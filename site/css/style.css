@@ -414,7 +414,7 @@ html.js [data-reveal].in{opacity:1;transform:none}
 .coach{background:#fff;padding-bottom:80px}
 .coach-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:center}
 .coach-frame{position:relative;border-radius:28px;padding:10px;background:linear-gradient(140deg,var(--blue),var(--sky));box-shadow:var(--shadow-lg);transform-style:preserve-3d;max-width:380px}
-.coach-frame img{width:100%;border-radius:20px;aspect-ratio:278/340;object-fit:cover}
+.coach-frame img{width:100%;height:auto;border-radius:20px;aspect-ratio:278/340;object-fit:cover}
 .coach-badge{position:absolute;right:-18px;bottom:30px;padding:14px 20px;border-radius:16px;background:#fff;border:1px solid var(--line);font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);transform:translateZ(40px);box-shadow:var(--shadow-lg)}
 .coach-badge b{display:block;font-family:var(--f-display);font-size:2.4rem;font-weight:400;line-height:1;color:var(--blue);letter-spacing:0}
 .coach-script{font-size:1.8rem;color:var(--blue)}
@@ -424,17 +424,17 @@ html.js [data-reveal].in{opacity:1;transform:none}
 .spec-grid svg{font-size:1.8rem;color:var(--blue);margin-bottom:6px}
 .spec-grid b{font-size:1rem;color:var(--navy)}
 .spec-grid span{font-size:.84rem;color:var(--muted)}
-.certs{margin-top:100px;padding:80px 0 30px;background:linear-gradient(180deg,#fff,var(--bg2) 30%,var(--bg2) 70%,#fff)}
-.certs-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:40px}
+.certs{margin-top:70px;padding:56px 0 24px;background:linear-gradient(180deg,#fff,var(--bg2) 30%,var(--bg2) 70%,#fff)}
+.certs-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:8px}
 .certs-head .h-lg{margin:0}
 .certs-nav{display:flex;gap:10px}
-.cert-track{display:flex;gap:36px;overflow-x:auto;scroll-snap-type:x mandatory;padding:40px calc(50vw - 150px) 50px;scrollbar-width:none;perspective:1400px;cursor:grab}
+.cert-track{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;padding:28px calc(50vw - 100px) 26px;scrollbar-width:none;perspective:1400px;cursor:grab}
 .cert-track::-webkit-scrollbar{display:none}
 .cert-track.dragging{cursor:grabbing;scroll-snap-type:none}
-.cert{flex:none;width:300px;scroll-snap-align:center;border:0;padding:0;background:none;cursor:pointer;transform-style:preserve-3d;transition:transform .2s ease-out}
-.cert img{width:100%;aspect-ratio:1130/1600;object-fit:cover;border-radius:10px;box-shadow:0 30px 50px -24px rgba(10,31,92,.55),0 0 0 1px var(--line);transition:box-shadow .4s;pointer-events:none;user-select:none}
+.cert{flex:none;width:200px;scroll-snap-align:center;border:0;padding:0;background:none;cursor:pointer;transform-style:preserve-3d;transition:transform .2s ease-out}
+.cert img{width:100%;height:auto;aspect-ratio:1130/1600;object-fit:contain;background:#fff;border-radius:10px;box-shadow:0 30px 50px -24px rgba(10,31,92,.55),0 0 0 1px var(--line);transition:box-shadow .4s;pointer-events:none;user-select:none}
 .cert.center img{box-shadow:0 40px 70px -24px rgba(10,31,92,.6),0 0 0 3px var(--blue)}
-.cert .cap{display:block;margin-top:18px;font-weight:700;font-size:.9rem;text-align:center;color:var(--muted);transition:color .3s}
+.cert .cap{display:block;margin:12px auto 0;max-width:190px;min-height:2.6em;line-height:1.3;font-weight:700;font-size:.8rem;text-align:center;color:var(--muted);transition:color .3s}
 .cert.center .cap{color:var(--blue2)}
 .certs-hint{text-align:center;font-size:.78rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
 
@@ -595,8 +595,9 @@ body.ready .wa-float{opacity:1;scale:1}
   .refer-steps b{font-size:.72rem}
   .contact-form{padding:26px 20px}
   .flyer-row{grid-template-columns:repeat(2,1fr)}
-  .cert{width:240px}
-  .cert-track{padding-left:calc(50vw - 120px);padding-right:calc(50vw - 120px);gap:22px}
+  .cert{width:160px}
+  .cert .cap{font-size:.74rem}
+  .cert-track{padding-left:calc(50vw - 80px);padding-right:calc(50vw - 80px);gap:14px}
   .certs-head{flex-direction:column;align-items:flex-start}
   .coach-badge{right:8px}
   .lb-prev,.lb-next{position:absolute;bottom:20px}

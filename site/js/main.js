@@ -388,11 +388,11 @@
     const tr = track.getBoundingClientRect(), mid = tr.left + tr.width / 2;
     cards.forEach(c => {
       const r = c.getBoundingClientRect();
-      const d = Math.max(-3, Math.min(3, (r.left + r.width / 2 - mid) / (r.width + 30)));
+      const d = Math.max(-3, Math.min(3, (r.left + r.width / 2 - mid) / (r.width + 22)));
       const ad = Math.abs(d);
       c.style.transform = reduced ? '' :
-        `rotateY(${-d * 28}deg) scale(${1 - Math.min(ad, 2) * .12}) translateZ(${-ad * 60}px)`;
-      c.style.opacity = 1 - Math.min(ad, 3) * .18;
+        `rotateY(${-d * 16}deg) scale(${1 - Math.min(ad, 2) * .08}) translateZ(${-ad * 30}px)`;
+      c.style.opacity = 1 - Math.min(ad, 3) * .12;
       c.style.zIndex = 10 - Math.round(ad);
       c.classList.toggle('center', ad < .5);
     });
