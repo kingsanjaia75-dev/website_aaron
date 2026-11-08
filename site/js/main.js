@@ -404,6 +404,15 @@
   $$('img', track).forEach(img => img.addEventListener('load', coverflow, { once: true }));
 
   const stepW = () => cards[0].offsetWidth + parseFloat(getComputedStyle(track).columnGap || 36);
+  // start centred on the middle certificate
+  const centreMiddle = () => {
+    track.style.scrollSnapType = 'none';
+    track.scrollLeft = Math.floor(cards.length / 2) * stepW();
+    track.style.scrollSnapType = '';
+    coverflow();
+  };
+  centreMiddle();
+  if (document.fonts) document.fonts.ready.then(() => { if (track.scrollLeft === 0) centreMiddle(); });
   $('#certPrev').addEventListener('click', () => track.scrollBy({ left: -stepW(), behavior: 'smooth' }));
   $('#certNext').addEventListener('click', () => track.scrollBy({ left: stepW(), behavior: 'smooth' }));
   track.addEventListener('keydown', e => {
