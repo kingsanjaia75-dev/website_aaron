@@ -267,6 +267,68 @@
     draw();
   }
 
+  /* ---------- gym / gym + cardio toggle ---------- */
+  {
+    const grid = $('#memberGrid');
+    const ptabs = $$('.plan-toggle [role=tab]');
+    const pind = $('.plan-ind');
+    const note = $('#planNote');
+    const notes = {
+      gym: 'Full access to the strength floor and all equipment.',
+      cardio: 'Everything in Gym, plus unlimited access to the cardio zone.'
+    };
+    let plan = 'gym';
+    const movePind = () => {
+      const t = ptabs.find(b => b.dataset.plan === plan);
+      pind.style.width = t.offsetWidth + 'px';
+      pind.style.transform = `translateX(${t.offsetLeft}px)`;
+    };
+    const run = (el, from, to, fmt) => {
+      const tok = el._tok = {};
+      if (reduced) { el.textContent = fmt(to); return; }
+      const t0 = performance.now(), dur = 600;
+      const step = now => {
+        if (el._tok !== tok) return;
+        const p = Math.min((now - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+        el.textContent = fmt(from + (to - from) * e);
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    const setPlan = next => {
+      if (next === plan) return;
+      const was = plan; plan = next;
+      ptabs.forEach(b => {
+        const on = b.dataset.plan === plan;
+        b.setAttribute('aria-selected', on);
+        b.tabIndex = on ? 0 : -1;
+      });
+      movePind();
+      note.textContent = notes[plan];
+      grid.classList.toggle('cardio', plan === 'cardio');
+      $$('.price[data-gym]', grid).forEach(el => {
+        const from = +el.dataset[was], to = +el.dataset[plan], m = +el.dataset.m;
+        el.dataset.count = to;
+        run(el, from, to, inr);
+        const per = el.nextElementSibling;
+        run(per, from / m, to / m, v => (m > 1 ? '≈ ' : '') + inr(v) + ' / month');
+        const card = el.closest('.mcard');
+        card.classList.remove('bump'); void card.offsetWidth; card.classList.add('bump');
+      });
+    };
+    ptabs.forEach((b, i) => {
+      b.addEventListener('click', () => setPlan(b.dataset.plan));
+      b.addEventListener('keydown', e => {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        const n = ptabs[(i + 1) % ptabs.length];
+        n.focus(); setPlan(n.dataset.plan);
+      });
+    });
+    addEventListener('resize', movePind);
+    movePind();
+    if (document.fonts) document.fonts.ready.then(movePind);
+  }
+
   /* ---------- personal coaching switcher ---------- */
   const months = [1, 4, 6, 8, 12];
   const coaching = {

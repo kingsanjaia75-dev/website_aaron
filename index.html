@@ -30,6 +30,7 @@
     <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11 12 4l9 7M5 10v10h14V10M10 20v-6h4v6"/></symbol>
     <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/></symbol>
     <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8h14l-3-3M20 16H6l3 3"/></symbol>
+    <symbol id="i-run" viewBox="0 0 24 24"><circle cx="14" cy="4.5" r="2"/><path d="m6 11 3-3h4l2 4 3 1M10 8l-2 6 4 2v5M8 14l-3 5"/></symbol>
     <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 9c0 6-8 11-8 11z"/></symbol>
     <symbol id="i-ring" viewBox="0 0 24 24"><circle cx="12" cy="15" r="6"/><path d="m9 6 3-3 3 3-3 3z"/></symbol>
     <symbol id="i-baby" viewBox="0 0 24 24"><circle cx="12" cy="6" r="3"/><path d="M7 21v-5l-2-3 4-3h6l4 3-2 3v5"/></symbol>
@@ -245,23 +246,20 @@
       <h2 class="h-xl" data-split>Access A <em>Premium</em> Training Space</h2>
       <p class="lead center" data-reveal>Modern equipment · Clean &amp; safe environment · Supportive community · Flexible timings</p>
     </div>
-    <div class="member-grid">
-      <article class="mcard spot" data-reveal style="--d:0"><h3>1 Month</h3><p class="price" data-count="1000" data-prefix="₹">₹1,000</p><p class="per">₹1,000 / month</p></article>
-      <article class="mcard spot" data-reveal style="--d:1"><h3>3 Months</h3><p class="price" data-count="2499" data-prefix="₹">₹2,499</p><p class="per">≈ ₹833 / month</p></article>
-      <article class="mcard spot" data-reveal style="--d:2"><h3>6 Months</h3><p class="price" data-count="4999" data-prefix="₹">₹4,999</p><p class="per">≈ ₹833 / month</p></article>
-      <article class="mcard spot" data-reveal style="--d:3"><h3>8 Months</h3><p class="price" data-count="6999" data-prefix="₹">₹6,999</p><p class="per">≈ ₹875 / month</p></article>
-      <article class="mcard spot featured glow-border" data-reveal style="--d:4"><span class="badge">Best Value</span><h3>12 Months</h3><p class="price" data-count="9499" data-prefix="₹">₹9,499</p><p class="per">≈ ₹792 / month</p></article>
+    <div class="plan-switch" data-reveal>
+      <div class="plan-toggle" role="tablist" aria-label="Membership type">
+        <span class="plan-ind" aria-hidden="true"></span>
+        <button type="button" role="tab" aria-selected="true" data-plan="gym"><svg><use href="#i-dumbbell"/></svg>Gym</button>
+        <button type="button" role="tab" aria-selected="false" tabindex="-1" data-plan="cardio"><svg><use href="#i-run"/></svg>Gym + Cardio</button>
+      </div>
+      <p class="plan-note" id="planNote" aria-live="polite">Full access to the strength floor and all equipment.</p>
     </div>
-    <div class="member-sub" data-reveal>
-      <p class="eyebrow">Gym + Cardio Membership</p>
-      <p class="lead center">Full gym access plus the cardio zone</p>
-    </div>
-    <div class="member-grid">
-      <article class="mcard spot" data-reveal style="--d:0"><h3>1 Month</h3><p class="price" data-count="1300" data-prefix="₹">₹1,300</p><p class="per">₹1,300 / month</p></article>
-      <article class="mcard spot" data-reveal style="--d:1"><h3>3 Months</h3><p class="price" data-count="3249" data-prefix="₹">₹3,249</p><p class="per">≈ ₹1,083 / month</p></article>
-      <article class="mcard spot" data-reveal style="--d:2"><h3>6 Months</h3><p class="price" data-count="6499" data-prefix="₹">₹6,499</p><p class="per">≈ ₹1,083 / month</p></article>
-      <article class="mcard spot" data-reveal style="--d:3"><h3>8 Months</h3><p class="price" data-count="9099" data-prefix="₹">₹9,099</p><p class="per">≈ ₹1,137 / month</p></article>
-      <article class="mcard spot featured glow-border" data-reveal style="--d:4"><span class="badge">Best Value</span><h3>12 Months</h3><p class="price" data-count="12349" data-prefix="₹">₹12,349</p><p class="per">≈ ₹1,029 / month</p></article>
+    <div class="member-grid" id="memberGrid">
+      <article class="mcard spot" data-reveal style="--d:0"><h3>1 Month</h3><p class="price" data-gym="1000" data-cardio="1300" data-m="1" data-count="1000" data-prefix="₹">₹1,000</p><p class="per">₹1,000 / month</p></article>
+      <article class="mcard spot" data-reveal style="--d:1"><h3>3 Months</h3><p class="price" data-gym="2499" data-cardio="3249" data-m="3" data-count="2499" data-prefix="₹">₹2,499</p><p class="per">≈ ₹833 / month</p></article>
+      <article class="mcard spot" data-reveal style="--d:2"><h3>6 Months</h3><p class="price" data-gym="4999" data-cardio="6499" data-m="6" data-count="4999" data-prefix="₹">₹4,999</p><p class="per">≈ ₹833 / month</p></article>
+      <article class="mcard spot" data-reveal style="--d:3"><h3>8 Months</h3><p class="price" data-gym="6999" data-cardio="9099" data-m="8" data-count="6999" data-prefix="₹">₹6,999</p><p class="per">≈ ₹875 / month</p></article>
+      <article class="mcard spot featured glow-border" data-reveal style="--d:4"><span class="badge">Best Value</span><h3>12 Months</h3><p class="price" data-gym="9499" data-cardio="12349" data-m="12" data-count="9499" data-prefix="₹">₹9,499</p><p class="per">≈ ₹792 / month</p></article>
     </div>
     <ul class="includes" data-reveal>
       <li><svg><use href="#i-dumbbell"/></svg>Access to all equipment</li>
